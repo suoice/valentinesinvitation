@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Date Plan 💛</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-yellow: #FFF4E0;
+            --accent-yellow: #FFE5B4;
+            --soft-peach: #FFD4A3;
+            --warm-cream: #FFF9F0;
+            --text-dark: #5A4A3A;
+            --text-light: #8B7B6B;
+            --soft-pink: #FFE4E1;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--warm-cream) 50%, var(--soft-pink) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            width: 100%;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Question Page Styles */
+        .question-page {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .heart-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            display: inline-block;
+            animation: heartBeat 2s ease infinite;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            color: var(--text-light);
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, var(--soft-peach) 0%, var(--accent-yellow) 100%);
+            color: var(--text-dark);
+            box-shadow: 0 10px 30px rgba(255, 212, 163, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 212, 163, 0.6);
+        }
+
+        .btn-no {
+            background: white;
+            color: var(--text-light);
+            border: 2px solid var(--accent-yellow);
+        }
+
+        .btn-no:hover {
+            background: var(--warm-cream);
+            transform: translateY(-3px);
+        }
+
+        .btn-single-yes {
+            background: linear-gradient(135deg, var(--soft-peach) 0%, var(--accent-yellow) 100%);
+            color: var(--text-dark);
+            box-shadow: 0 10px 30px rgba(255, 212, 163, 0.4);
+            padding: 18px 80px;
+        }
+
+        /* Cafe Selection Styles */
+        .cafe-page {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .cafe-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cafe-header h1 {
+            margin-bottom: 15px;
+        }
+
+        .cafe-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .cafe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .cafe-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .cafe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Image Carousel Styles */
+        .cafe-carousel {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+            background: linear-gradient(135deg, var(--accent-yellow), var(--soft-peach));
+        }
+
+        .carousel-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-image {
+            min-width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            padding: 0;
+        }
+
+        .carousel-btn:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .cafe-content {
+            padding: 25px;
+        }
+
+        .cafe-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            letter-spacing: -0.01em;
+        }
+
+        .cafe-location {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+            line-height: 1.5;
+        }
+
+        .cafe-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--accent-yellow);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .detail-label {
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .detail-value {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .cafe-vibe {
+            background: var(--warm-cream);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .personal-note {
+            background: linear-gradient(135deg, var(--accent-yellow), var(--soft-peach));
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .price-range {
+            color: var(--soft-peach);
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--text-dark);
+        }
+
+        /* Confirmation Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .modal h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .modal p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, var(--soft-peach) 0%, var(--accent-yellow) 100%);
+            color: var(--text-dark);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 212, 163, 0.4);
+        }
+
+        .btn-cancel {
+            background: white;
+            color: var(--text-dark);
+            padding: 15px 40px;
+            border: 2px solid var(--accent-yellow);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: var(--warm-cream);
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid var(--accent-yellow);
+            border-top: 3px solid var(--soft-peach);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cafe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .heart-icon {
+                font-size: 60px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .btn-confirm, .btn-cancel {
+                width: 100%;
+            }
+
+            /* Adjust carousel height for mobile - optimized for portrait photos */
+            .cafe-carousel {
+                height: 400px;
+            }
+
+            .carousel-image {
+                font-size: 50px;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .cafe-carousel {
+                height: 430px;
+            }
+        }
+
+        /* Larger screens - give more space for portrait photos */
+        @media (min-width: 1025px) {
+            .cafe-carousel {
+                height: 480px;
+            }
+        }
+
+        /* Decorative elements */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .specialty-tag {
+            display: inline-block;
+            background: var(--warm-cream);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <div class="container">
+        <!-- First Question -->
+        <div id="question1" class="page question-page">
+            <div class="heart-icon">💛</div>
+            <h1>Will You Be My Valentine?</h1>
+            <p class="subtitle">LEZZGAWWW</p>
+            <div class="button-group">
+                <button class="btn-yes" onclick="showCafes()">Yes! 💕</button>
+                <button class="btn-no" onclick="showQuestion2()">Maybe not...</button>
+            </div>
+        </div>
+
+        <!-- Second Question (Begging) -->
+        <div id="question2" class="page question-page hidden">
+            <div class="heart-icon">🥺</div>
+            <h1>Please? Pretty Please?</h1>
+            <p class="subtitle"></p>
+            <div class="button-group">
+                <button class="btn-yes" onclick="showCafes()">Okay, Yes! 💗</button>
+                <button class="btn-no" onclick="showQuestion3()">Still thinking...</button>
+            </div>
+        </div>
+
+        <!-- Third Question (All Yes) -->
+        <div id="question3" class="page question-page hidden">
+            <div class="heart-icon">💖</div>
+            <h1>Choose Your Answer!</h1>
+            <p class="subtitle">hehe... </p>
+            <div class="button-group">
+                <button class="btn-yes" onclick="showCafes()">Yes! 🥰</button>
+                <button class="btn-yes" onclick="showCafes()">Absolutely Yes! 💕</button>
+                <button class="btn-yes" onclick="showCafes()">Of course Yes! 💝</button>
+            </div>
+        </div>
+
+        <!-- Cafe Selection Page -->
+        <div id="cafePage" class="page cafe-page hidden">
+            <div class="cafe-header">
+                <h1>Choose Our Valentine's Cafe! 🌟</h1>
+                <p>Pick your favorite spot and let's make it a date to remember</p>
+            </div>
+
+            <div class="cafe-grid">
+                <!-- Cafe 1: Chewroom Cafe -->
+                <div class="cafe-card" onclick="openConfirmation('Chewroom Cafe', 'Rizal St., Old Albay District, Legazpi City')">
+                    <div class="cafe-carousel" data-cafe="chewroom">
+                        <div class="carousel-container">
+                            <div class="carousel-image" style="background-image: url('chewroom-1.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('chewroom-2.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('chewroom-3.jpg')"></div>
+                        </div>
+                        <button class="carousel-btn prev" onclick="event.stopPropagation(); changeSlide('chewroom', -1)">‹</button>
+                        <button class="carousel-btn next" onclick="event.stopPropagation(); changeSlide('chewroom', 1)">›</button>
+                        <div class="carousel-dots">
+                            <span class="carousel-dot active" onclick="event.stopPropagation(); goToSlide('chewroom', 0)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('chewroom', 1)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('chewroom', 2)"></span>
+                        </div>
+                    </div>
+                    <div class="cafe-content">
+                        <h3 class="cafe-name">Chewroom Cafe</h3>
+                        <div class="cafe-location">📍 Rizal St., Old Albay District, Legazpi City (near Health Centers)</div>
+                        
+                        <div class="cafe-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Travel Time:</span>
+                                <span class="detail-value">~10-12 mins from Rawis</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Price Range:</span>
+                                <span class="detail-value price-range">₱180 – ₱450</span>
+                            </div>
+                        </div>
+
+                        <div class="cafe-vibe">
+                            ✨ Minimalist, clean, modern - High-end city cafe with "slow-living" vibe
+                        </div>
+
+                        <div class="specialty-tag">
+                            🏛️ White walls, wooden accents, soft lighting - Very Instagrammable!
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://facebook.com/chewroomcafe" target="_blank" class="social-link" onclick="event.stopPropagation()">📘 Facebook</a>
+                            <a href="https://instagram.com/chewroomcafe" target="_blank" class="social-link" onclick="event.stopPropagation()">📸 @chewroomcafe</a>
+                        </div>
+
+                        <div class="personal-note">
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cafe 2: Cafe Aldaw -->
+                <div class="cafe-card" onclick="openConfirmation('Cafe Aldaw', 'Cal Courtyard, Legazpi, Albay (near AMEC)')">
+                    <div class="cafe-carousel" data-cafe="aldaw">
+                        <div class="carousel-container">
+                            <div class="carousel-image" style="background-image: url('cafealdaw-1.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('cafealdaw-2.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('cafealdaw-3.jpg')"></div>
+                        </div>
+                        <button class="carousel-btn prev" onclick="event.stopPropagation(); changeSlide('aldaw', -1)">‹</button>
+                        <button class="carousel-btn next" onclick="event.stopPropagation(); changeSlide('aldaw', 1)">›</button>
+                        <div class="carousel-dots">
+                            <span class="carousel-dot active" onclick="event.stopPropagation(); goToSlide('aldaw', 0)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('aldaw', 1)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('aldaw', 2)"></span>
+                        </div>
+                    </div>
+                    <div class="cafe-content">
+                        <h3 class="cafe-name">Cafe Aldaw</h3>
+                        <div class="cafe-location">📍 Cal Courtyard, Legazpi, Albay (near AMEC)</div>
+                        
+                        <div class="cafe-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Travel Time:</span>
+                                <span class="detail-value">~15-20 mins from Rawis</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Price Range:</span>
+                                <span class="detail-value price-range">₱200 – ₱550</span>
+                            </div>
+                        </div>
+
+                        <div class="cafe-vibe">
+                            ☀️ Bright, airy, nature-inspired - Large windows with natural light, feels open & fresh
+                        </div>
+
+                        <div class="specialty-tag">
+                            🌱 Industrial steel meets lush plants - "Garden room" perfect for daytime dates
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://facebook.com/cafealdaw" target="_blank" class="social-link" onclick="event.stopPropagation()">📘 Facebook</a>
+                            <a href="https://instagram.com/cafealdaw" target="_blank" class="social-link" onclick="event.stopPropagation()">📸 @cafealdaw</a>
+                        </div>
+
+                        <div class="personal-note">
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cafe 3: Tizan -->
+                <div class="cafe-card" onclick="openConfirmation('Tizan (The Tisane & Coffee Bar)', 'D Ante Compound, Rizal Street, Old Albay, Legazpi City')">
+                    <div class="cafe-carousel" data-cafe="tizan">
+                        <div class="carousel-container">
+                            <div class="carousel-image" style="background-image: url('tizan-1.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('tizan-2.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('tizan-3.jpg')"></div>
+                        </div>
+                        <button class="carousel-btn prev" onclick="event.stopPropagation(); changeSlide('tizan', -1)">‹</button>
+                        <button class="carousel-btn next" onclick="event.stopPropagation(); changeSlide('tizan', 1)">›</button>
+                        <div class="carousel-dots">
+                            <span class="carousel-dot active" onclick="event.stopPropagation(); goToSlide('tizan', 0)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('tizan', 1)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('tizan', 2)"></span>
+                        </div>
+                    </div>
+                    <div class="cafe-content">
+                        <h3 class="cafe-name">Tizan</h3>
+                        <div class="cafe-location">📍 D Ante Compound, Rizal Street, Old Albay, Legazpi City</div>
+                        
+                        <div class="cafe-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Travel Time:</span>
+                                <span class="detail-value">~10-15 mins from Rawis</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Price Range:</span>
+                                <span class="detail-value price-range">₱150 – ₱400</span>
+                            </div>
+                        </div>
+
+                        <div class="cafe-vibe">
+                            🌙 Cozy, intimate, botanical - Hidden gem that feels like a private discovery
+                        </div>
+
+                        <div class="specialty-tag">
+                            🫖 Specializes in Tisanes (tea-based drinks) + Great coffee too!
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://facebook.com/tizan" target="_blank" class="social-link" onclick="event.stopPropagation()">📘 Facebook</a>
+                            <a href="https://instagram.com/tizan.legazpi" target="_blank" class="social-link" onclick="event.stopPropagation()">📸 @tizan.legazpi</a>
+                        </div>
+
+                        <div class="personal-note">
+                            
+                    </div>
+                </div>
+
+                <!-- Cafe 4: Cafe Fabrika -->
+                <div class="cafe-card" onclick="openConfirmation('Cafe Fabrika', 'Sta. Maria St., Kimantong, Daraga, Albay')">
+                    <div class="cafe-carousel" data-cafe="fabrika">
+                        <div class="carousel-container">
+                            <div class="carousel-image" style="background-image: url('fabrika-1.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('fabrika-2.jpg')"></div>
+                            <div class="carousel-image" style="background-image: url('fabrika-3.jpg')"></div>
+                        </div>
+                        <button class="carousel-btn prev" onclick="event.stopPropagation(); changeSlide('fabrika', -1)">‹</button>
+                        <button class="carousel-btn next" onclick="event.stopPropagation(); changeSlide('fabrika', 1)">›</button>
+                        <div class="carousel-dots">
+                            <span class="carousel-dot active" onclick="event.stopPropagation(); goToSlide('fabrika', 0)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('fabrika', 1)"></span>
+                            <span class="carousel-dot" onclick="event.stopPropagation(); goToSlide('fabrika', 2)"></span>
+                        </div>
+                    </div>
+                    <div class="cafe-content">
+                        <h3 class="cafe-name">Cafe Fabrika</h3>
+                        <div class="cafe-location">📍 Sta. Maria St., Kimantong, Daraga, Albay</div>
+                        
+                        <div class="cafe-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Travel Time:</span>
+                                <span class="detail-value">~25-30 mins from Rawis</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Price Range:</span>
+                                <span class="detail-value price-range">₱150 – ₱400</span>
+                            </div>
+                        </div>
+
+                        <div class="cafe-vibe">
+                            🎭 Retro, artsy, nostalgic - Doubles as museum/gallery with vintage vibes
+                        </div>
+
+                        <div class="specialty-tag">
+                            🕰️ Vintage watches, old art, eclectic antique decor - Always something to explore!
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://facebook.com/cafefabrika" target="_blank" class="social-link" onclick="event.stopPropagation()">📘 Facebook</a>
+                            <a href="https://instagram.com/cafefabrika" target="_blank" class="social-link" onclick="event.stopPropagation()">📸 @cafefabrika</a>
+                        </div>
+
+                        <div class="personal-note">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h2>Perfect Choice! 💕</h2>
+            <p id="modalText">You selected <strong id="selectedCafe"></strong>!</p>
+            <p>Would you like to confirm this choice? We'll both receive an email with the details!</p>
+            <div id="loadingDiv" class="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 15px; color: var(--text-light);">Sending email...</p>
+            </div>
+            <div class="modal-buttons" id="modalButtons">
+                <button class="btn-confirm" onclick="confirmSelection()">Yes, Send Email! ✉️</button>
+                <button class="btn-cancel" onclick="closeModal()">Let me look again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // EmailJS Configuration
+        // IMPORTANT: Replace these with your actual EmailJS credentials
+        // Sign up at https://www.emailjs.com/ to get these values
+        const EMAILJS_SERVICE_ID = 'service_wfw2qz4'; // Replace with your EmailJS service ID
+        const EMAILJS_TEMPLATE_ID = 'template_6u1conk'; // Replace with your EmailJS template ID
+        const EMAILJS_PUBLIC_KEY = 'R1_F2_-z8NpMgDiP8'; // Replace with your EmailJS public key
+        
+        // Email addresses
+        const YOUR_EMAIL = 'micotantiado@gmail.com'; // Replace with your email
+        const HER_EMAIL = 'd71332163@gmail.com'; // Replace with her email
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        // Carousel state management
+        const carouselStates = {
+            chewroom: 0,
+            aldaw: 0,
+            tizan: 0,
+            fabrika: 0
+        };
+
+        function changeSlide(cafe, direction) {
+            const carousel = document.querySelector(`[data-cafe="${cafe}"]`);
+            const container = carousel.querySelector('.carousel-container');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            const totalSlides = dots.length;
+
+            carouselStates[cafe] = (carouselStates[cafe] + direction + totalSlides) % totalSlides;
+            
+            container.style.transform = `translateX(-${carouselStates[cafe] * 100}%)`;
+            updateDots(cafe);
+        }
+
+        function goToSlide(cafe, index) {
+            const carousel = document.querySelector(`[data-cafe="${cafe}"]`);
+            const container = carousel.querySelector('.carousel-container');
+            
+            carouselStates[cafe] = index;
+            container.style.transform = `translateX(-${index * 100}%)`;
+            updateDots(cafe);
+        }
+
+        function updateDots(cafe) {
+            const carousel = document.querySelector(`[data-cafe="${cafe}"]`);
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === carouselStates[cafe]);
+            });
+        }
+
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['💛', '🧡', '💗', '💕'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        function hideAll() {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+        }
+
+        function showQuestion2() {
+            hideAll();
+            document.getElementById('question2').classList.remove('hidden');
+        }
+
+        function showQuestion3() {
+            hideAll();
+            document.getElementById('question3').classList.remove('hidden');
+        }
+
+        function showCafes() {
+            hideAll();
+            document.getElementById('cafePage').classList.remove('hidden');
+        }
+
+        // Modal functions
+        let selectedCafeName = '';
+        let selectedCafeLocation = '';
+
+        function openConfirmation(cafeName, location) {
+            selectedCafeName = cafeName;
+            selectedCafeLocation = location;
+            document.getElementById('selectedCafe').textContent = cafeName;
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+        }
+
+        function confirmSelection() {
+            // Show loading
+            document.getElementById('loadingDiv').classList.add('active');
+            document.getElementById('modalButtons').style.display = 'none';
+
+            // Prepare email parameters
+            const templateParams = {
+                cafe_name: selectedCafeName,
+                cafe_location: selectedCafeLocation,
+                your_email: YOUR_EMAIL,
+                her_email: HER_EMAIL,
+                to_email: HER_EMAIL, // Her email for the template
+                date: 'February 12, 2026' // Adjust as needed
+            };
+
+            // Send email using EmailJS
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Hide loading
+                    document.getElementById('loadingDiv').classList.remove('active');
+                    
+                    // Show success message
+                    document.querySelector('.modal-content h2').textContent = "Email Sent! 🎉";
+                    document.querySelector('.modal-content p').innerHTML = `
+                        Perfect! You've both received an email confirmation for <strong>${selectedCafeName}</strong>!<br><br>
+                        See you on our Valentine's date! 💕
+                    `;
+                    
+                    // Change button to close
+                    document.getElementById('modalButtons').style.display = 'flex';
+                    document.getElementById('modalButtons').innerHTML = `
+                        <button class="btn-confirm" onclick="closeModal()">Close 💝</button>
+                    `;
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Hide loading
+                    document.getElementById('loadingDiv').classList.remove('active');
+                    
+                    // Show error message
+                    document.querySelector('.modal-content h2').textContent = "Oops! 😅";
+                    document.querySelector('.modal-content p').innerHTML = `
+                        Something went wrong sending the email. But don't worry!<br><br>
+                        You chose <strong>${selectedCafeName}</strong> - I'll make sure we go there! 💕
+                    `;
+                    
+                    // Change button to close
+                    document.getElementById('modalButtons').style.display = 'flex';
+                    document.getElementById('modalButtons').innerHTML = `
+                        <button class="btn-confirm" onclick="closeModal()">Close</button>
+                    `;
+                });
+        }
+
+        // Initialize floating hearts on load
+        createFloatingHearts();
+    </script>
+</body>
+</html>
